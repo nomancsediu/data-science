@@ -9,18 +9,18 @@ NumPy (Numerical Python) হলো Python এর সবচেয়ে গুর
 ### NumPy ইনস্টল ও ইম্পোর্ট
 
 ```python
-# ইনস্টলেশন (টার্মিনালে লিখতে হবে)
+# Installation (run in terminal)
 # pip install numpy
 
-# ইম্পোর্ট
+# Import
 import numpy as np
 
-print(f"NumPy ভার্সন: {np.__version__}")
+print(f"NumPy version: {np.__version__}")
 ```
 
 Output:
 ```
-NumPy ভার্সন: 1.26.4
+NumPy version: 1.26.4
 ```
 
 সবসময় `import numpy as np` লিখতে হবে। এটা সবার ফলো করা কনভেনশন, `np` ছোট নাম ব্যবহার করা হয়।
@@ -35,20 +35,20 @@ import numpy as np
 # Python list
 python_list = [1, 2, 3, 4, 5]
 print(f"Python list: {python_list}")
-print(f"টাইপ: {type(python_list)}")
+print(f"Type: {type(python_list)}")
 
 # NumPy array
 numpy_array = np.array([1, 2, 3, 4, 5])
 print(f"NumPy array: {numpy_array}")
-print(f"টাইপ: {type(numpy_array)}")
+print(f"Type: {type(numpy_array)}")
 ```
 
 Output:
 ```
 Python list: [1, 2, 3, 4, 5]
-টাইপ: <class 'list'>
+Type: <class 'list'>
 NumPy array: [1 2 3 4 5]
-টাইপ: <class 'numpy.ndarray'>
+Type: <class 'numpy.ndarray'>
 ```
 
 দেখো, list এ কমা আছে, NumPy array তে কমা নেই। এটা ছোট পার্থক্য মনে হতে পারে, কিন্তু ভেতরের পার্থক্য অনেক বড়।
@@ -59,7 +59,7 @@ NumPy array: [1 2 3 4 5]
 import numpy as np
 import time
 
-# Python list দিয়ে দশ লাখ সংখ্যা যোগ
+# Adding 1 million numbers with Python list
 size = 1_000_000
 python_list1 = list(range(size))
 python_list2 = list(range(size))
@@ -68,7 +68,7 @@ start = time.time()
 result_list = [a + b for a, b in zip(python_list1, python_list2)]
 time_list = time.time() - start
 
-# NumPy array দিয়ে দশ লাখ সংখ্যা যোগ
+# Adding 1 million numbers with NumPy array
 numpy_array1 = np.arange(size)
 numpy_array2 = np.arange(size)
 
@@ -76,16 +76,16 @@ start = time.time()
 result_array = numpy_array1 + numpy_array2
 time_numpy = time.time() - start
 
-print(f"Python list সময়: {time_list:.4f} সেকেন্ড")
-print(f"NumPy array সময়: {time_numpy:.4f} সেকেন্ড")
-print(f"NumPy কতগুণ দ্রুত: {time_list/time_numpy:.1f} গুণ")
+print(f"Python list time: {time_list:.4f} sec")
+print(f"NumPy array time: {time_numpy:.4f} sec")
+print(f"NumPy speedup: {time_list/time_numpy:.1f}x")
 ```
 
 Output:
 ```
-Python list সময়: 0.1523 সেকেন্ড
-NumPy array সময়: 0.0031 সেকেন্ড
-NumPy কতগুণ দ্রুত: 49.1 গুণ
+Python list time: 0.1523 sec
+NumPy array time: 0.0031 sec
+NumPy speedup: 49.1x
 ```
 
 এই পার্থক্যটা বড় ডেটায় আরো বেশি হবে। NumPy এত দ্রুত কারণ এটা C ভাষায় লেখা, আর vectorization ব্যবহার করে, মানে loop ছাড়াই পুরো array তে একসাথে অপারেশন করে।
@@ -97,45 +97,45 @@ NumPy কতগুণ দ্রুত: 49.1 গুণ
 ```python
 import numpy as np
 
-# ১D array (ভেক্টর)
+# 1D array (vector)
 arr_1d = np.array([1, 2, 3, 4, 5])
-print(f"১D array: {arr_1d}")
-print(f"ডাইমেনশন: {arr_1d.ndim}")
-print(f"শেপ: {arr_1d.shape}")
+print(f"1D array: {arr_1d}")
+print(f"Dimension: {arr_1d.ndim}")
+print(f"Shape: {arr_1d.shape}")
 
-# ২D array (ম্যাট্রিক্স)
+# 2D array (matrix)
 arr_2d = np.array([[1, 2, 3], [4, 5, 6]])
-print(f"\n২D array:\n{arr_2d}")
-print(f"ডাইমেনশন: {arr_2d.ndim}")
-print(f"শেপ: {arr_2d.shape}")
+print(f"\n2D array:\n{arr_2d}")
+print(f"Dimension: {arr_2d.ndim}")
+print(f"Shape: {arr_2d.shape}")
 
-# ৩D array
+# 3D array
 arr_3d = np.array([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
-print(f"\n৩D array:\n{arr_3d}")
-print(f"ডাইমেনশন: {arr_3d.ndim}")
-print(f"শেপ: {arr_3d.shape}")
+print(f"\n3D array:\n{arr_3d}")
+print(f"Dimension: {arr_3d.ndim}")
+print(f"Shape: {arr_3d.shape}")
 ```
 
 Output:
 ```
-১D array: [1 2 3 4 5]
-ডাইমেনশন: 1
-শেপ: (5,)
+1D array: [1 2 3 4 5]
+Dimension: 1
+Shape: (5,)
 
-২D array:
+2D array:
 [[1 2 3]
  [4 5 6]]
-ডাইমেনশন: 2
-শেপ: (2, 3)
+Dimension: 2
+Shape: (2, 3)
 
-৩D array:
+3D array:
 [[[1 2]
   [3 4]]
 
  [[5 6]
   [7 8]]]
-ডাইমেনশন: 3
-শেপ: (2, 2, 2)
+Dimension: 3
+Shape: (2, 2, 2)
 ```
 
 ### শেপ (Shape) বোঝা
@@ -154,10 +154,10 @@ arr = np.array([[1, 2, 3, 4],
                 [9, 10, 11, 12]])
 
 print(f"Array:\n{arr}")
-print(f"শেপ: {arr.shape}")
-print(f"রো সংখ্যা: {arr.shape[0]}")
-print(f"কলাম সংখ্যা: {arr.shape[1]}")
-print(f"মোট এলিমেন্ট: {arr.size}")
+print(f"Shape: {arr.shape}")
+print(f"Rows: {arr.shape[0]}")
+print(f"Columns: {arr.shape[1]}")
+print(f"Total elements: {arr.size}")
 ```
 
 Output:
@@ -166,10 +166,10 @@ Array:
 [[ 1  2  3  4]
  [ 5  6  7  8]
  [ 9 10 11 12]]
-শেপ: (3, 4)
-রো সংখ্যা: 3
-কলাম সংখ্যা: 4
-মোট এলিমেন্ট: 12
+Shape: (3, 4)
+Rows: 3
+Columns: 4
+Total elements: 12
 ```
 
 ### Array তৈরির বিভিন্ন উপায়
@@ -179,35 +179,35 @@ Array:
 ```python
 import numpy as np
 
-# zeros - সব 0 দিয়ে ভরা
+# zeros - filled with 0
 zeros_arr = np.zeros((3, 4))
 print(f"zeros:\n{zeros_arr}")
 
-# ones - সব 1 দিয়ে ভরা
+# ones - filled with 1
 ones_arr = np.ones((2, 3))
 print(f"\nones:\n{ones_arr}")
 
-# full - নির্দিষ্ট মান দিয়ে ভরা
+# full - filled with specific value
 full_arr = np.full((2, 2), 7)
 print(f"\nfull:\n{full_arr}")
 
-# arange - range এর মতো
+# arange - like range()
 range_arr = np.arange(0, 10, 2)
 print(f"\narange: {range_arr}")
 
-# linspace - সমান ব্যবধানে
+# linspace - equal spacing
 linspace_arr = np.linspace(0, 1, 5)
 print(f"linspace: {linspace_arr}")
 
-# random - র্যান্ডম সংখ্যা
+# random - random numbers
 random_arr = np.random.rand(3, 2)
 print(f"\nrandom:\n{random_arr}")
 
-# randint - র্যান্ডম পূর্ণসংখ্যা
+# randint - random integers
 randint_arr = np.random.randint(1, 100, size=(2, 3))
 print(f"\nrandint:\n{randint_arr}")
 
-# eye - আইডেন্টিটি ম্যাট্রিক্স
+# eye - identity matrix
 eye_arr = np.eye(3)
 print(f"\neye:\n{eye_arr}")
 ```
@@ -262,7 +262,7 @@ print(f"float array dtype: {float_arr.dtype}")
 print(f"mixed array dtype: {mixed_arr.dtype}")
 print(f"string array dtype: {str_arr.dtype}")
 
-# নির্দিষ্ট dtype দিয়ে তৈরি
+# Create with specific dtype
 float32_arr = np.array([1, 2, 3], dtype=np.float32)
 int8_arr = np.array([1, 2, 3], dtype=np.int8)
 print(f"\nfloat32: {float32_arr.dtype}")
