@@ -1,0 +1,18 @@
+[book]
+title = "Machine Learning with Python — Bangla Tutorial"
+authors = ["Team Cholok"]
+description = "A comprehensive Bangla guide to Machine Learning fundamentals with Python — NumPy, Pandas, Matplotlib, Scikit-learn"
+language = "bn"
+multilingual = false
+src = "src"
+
+[build]
+build-dir = "book"
+
+[output.html]
+default-theme = "navy"
+git-repository-url = "https://github.com/nomancsediu/ml-book"
+edit-url-template = "https://github.com/nomancsediu/ml-book/edit/main/{path}"
+
+[output.html.print]
+enable = true
