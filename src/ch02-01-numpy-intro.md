@@ -88,11 +88,13 @@ NumPy array time: 0.0031 sec
 NumPy speedup: 49.1x
 ```
 
-এই পার্থক্যটা বড় ডেটায় আরো বেশি হবে। NumPy এত দ্রুত কারণ এটা C ভাষায় লেখা, আর vectorization ব্যবহার করে, মানে loop ছাড়াই পুরো array তে একসাথে অপারেশন করে।
+NumPy এত দ্রুত কারণ এটা C ভাষায় লেখা, আর vectorization ব্যবহার করে, মানে loop ছাড়াই পুরো array তে একসাথে অপারেশন করে।
 
 ### ndarray কি?
 
-**ndarray** (N-dimensional array) হলো NumPy এর মূল ডেটা স্ট্রাকচার। এটা একটা গ্রিড যেখানে সব ভ্যালু একই টাইপের। "nd" মানে N-dimensional, অর্থাৎ ১D, ২D, ৩D যেকোনো ডাইমেনশনের হতে পারে।
+**ndarray** (N-dimensional array) হলো NumPy এর মূল ডেটা স্ট্রাকচার। এটা একটা গ্রিড যেখানে সব ভ্যালু একই টাইপের। "nd" মানে N-dimensional, অর্থাৎ 1D, 2D, 3D যেকোনো ডাইমেনশনের হতে পারে।
+
+Python list এ প্রতিটা এলিমেন্ট আলাদা অবজেক্ট, তাই লুপ চালালে অনেক স্লো হয়। অন্যদিকে ndarray মেমরিতে কনটিগুয়াসলি স্টোর হয়, আর সব এলিমেন্ট একই টাইপের হয়। তাই NumPy C লেভেলে অপারেশন করতে পারে, আর এত ফাস্ট হয়।
 
 ```python
 import numpy as np
@@ -138,84 +140,3 @@ Dimension: 3
 Shape: (2, 2, 2)
 ```
 
-### শেপ (Shape) বোঝা
-
-শেপ হলো array এর প্রতিটা ডাইমেনশনে কতগুলো এলিমেন্ট আছে, সেটার টুপল। এটা অত্যন্ত গুরুত্বপূর্ণ কনসেপ্ট, কারণ মেশিন লার্নিং এ সবসময় শেপ নিয়ে কাজ করতে হয়।
-
-- `(5,)` মানে ১D array, ৫টা এলিমেন্ট
-- `(2, 3)` মানে ২D array, ২ রো, ৩ কলাম
-- `(2, 2, 2)` মানে ৩D array, ২টা ২x২ ম্যাট্রিক্স
-
-```python
-import numpy as np
-
-arr = np.array([[1, 2, 3, 4],
-                [5, 6, 7, 8],
-                [9, 10, 11, 12]])
-
-print(f"Array:\n{arr}")
-print(f"Shape: {arr.shape}")
-print(f"Rows: {arr.shape[0]}")
-print(f"Columns: {arr.shape[1]}")
-print(f"Total elements: {arr.size}")
-```
-
-Output:
-```
-Array:
-[[ 1  2  3  4]
- [ 5  6  7  8]
- [ 9 10 11 12]]
-Shape: (3, 4)
-Rows: 3
-Columns: 4
-Total elements: 12
-```
-
-### ডেটা টাইপ (dtype)
-
-NumPy array সব এলিমেন্ট একই টাইপের হয়। এই টাইপ কি, সেটা `dtype` অ্যাট্রিবিউট দিয়ে দেখা যায়:
-
-```python
-import numpy as np
-
-int_arr = np.array([1, 2, 3])
-float_arr = np.array([1.0, 2.0, 3.0])
-mixed_arr = np.array([1, 2.5, 3])
-str_arr = np.array(['hello', 'world'])
-
-print(f"int array dtype: {int_arr.dtype}")
-print(f"float array dtype: {float_arr.dtype}")
-print(f"mixed array dtype: {mixed_arr.dtype}")
-print(f"string array dtype: {str_arr.dtype}")
-
-# Create with specific dtype
-float32_arr = np.array([1, 2, 3], dtype=np.float32)
-int8_arr = np.array([1, 2, 3], dtype=np.int8)
-print(f"\nfloat32: {float32_arr.dtype}")
-print(f"int8: {int8_arr.dtype}")
-```
-
-Output:
-```
-int array dtype: int64
-float array dtype: float64
-mixed array dtype: float64
-string array dtype: <U5
-
-float32: float32
-int8: int8
-```
-
-খেয়াল করো, mixed array (int আর float মিশ্রিত) তে সব কিছু float হয়ে গেছে। NumPy স্বয়ংক্রিয়ভাবে সবচেয়ে বড় টাইপে কনভার্ট করে। এটা হলো upcasting।
-
-### সারসংক্ষেপ
-
-| ফিচার | Python List | NumPy Array |
-|---|---|---|
-| টাইপ | মিশ্র হতে পারে | একই টাইপ |
-| স্পিড | ধীর | দ্রুত (৫০-১০০ গুণ) |
-| মেমরি | বেশি | কম |
-| অপারেশন | loop লাগে | vectorized |
-| ব্রডকাস্টিং | নেই | আছে |
-| মাল্টিডাইমেনশনাল | জটিল | সহজ |
