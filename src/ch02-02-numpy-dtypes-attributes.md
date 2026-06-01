@@ -4,6 +4,79 @@
 
 মেশিন লার্নিং এ ডেটা টাইপ অত্যন্ত গুরুত্বপূর্ণ। একটা ছবি ০ থেকে ২৫৫ এর int হিসেবে থাকে, কিন্তু নিউরাল নেটওয়ার্ক ০ থেকে ১ এর float চায়। টাইপ ভুল হলে মডেল কাজ করবে না। ডেটা টাইপ ভুল হলে দিনের পর দিন এরর খুঁজতে হতে পারে, আর শেষে দেখা যাবে সমস্যা শুধু ডেটা টাইপ। তাই এই বিষয়টা ভালো করে বুঝতে হবে।
 
+### Array তৈরির বিভিন্ন উপায়
+
+`np.array()` ছাড়াও অনেকভাবে array তৈরি করা যায়:
+
+```python
+import numpy as np
+
+# zeros - filled with 0
+zeros_arr = np.zeros((3, 4))
+print(f"zeros:\n{zeros_arr}")
+
+# ones - filled with 1
+ones_arr = np.ones((2, 3))
+print(f"\nones:\n{ones_arr}")
+
+# full - filled with specific value
+full_arr = np.full((2, 2), 7)
+print(f"\nfull:\n{full_arr}")
+
+# arange - like range()
+range_arr = np.arange(0, 10, 2)
+print(f"\narange: {range_arr}")
+
+# linspace - equal spacing
+linspace_arr = np.linspace(0, 1, 5)
+print(f"linspace: {linspace_arr}")
+
+# random - random numbers
+random_arr = np.random.rand(3, 2)
+print(f"\nrandom:\n{random_arr}")
+
+# randint - random integers
+randint_arr = np.random.randint(1, 100, size=(2, 3))
+print(f"\nrandint:\n{randint_arr}")
+
+# eye - identity matrix
+eye_arr = np.eye(3)
+print(f"\neye:\n{eye_arr}")
+```
+
+Output:
+```
+zeros:
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]
+
+ones:
+[[1. 1. 1.]
+ [1. 1. 1.]]
+
+full:
+[[7 7]
+ [7 7]]
+
+arange: [0 2 4 6 8]
+linspace: [0.   0.25 0.5  0.75 1.  ]
+
+random:
+[[0.548 0.715]
+ [0.603 0.545]
+ [0.424 0.646]]
+
+randint:
+[[45 67 23]
+ [89 12 56]]
+
+eye:
+[[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]]
+```
+
 ### NumPy এর ডেটা টাইপসমূহ
 
 NumPy তে অনেক ধরনের ডেটা টাইপ আছে, কিন্তু বেশি ব্যবহৃত গুলো হলো:
