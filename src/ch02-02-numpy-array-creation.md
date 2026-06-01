@@ -1,121 +1,57 @@
-## NumPy ডেটা টাইপ ও Array Attributes
+## NumPy অ্যারে তৈরি ও ডেটা টাইপ
 
-### কেন ডেটা টাইপ বুঝতে হবে?
+### np.array() দিয়ে অ্যারে তৈরি
 
-মেশিন লার্নিং এ ডেটা টাইপ অত্যন্ত গুরুত্বপূর্ণ। একটা ছবি ০ থেকে ২৫৫ এর int হিসেবে থাকে, কিন্তু নিউরাল নেটওয়ার্ক ০ থেকে ১ এর float চায়। টাইপ ভুল হলে মডেল কাজ করবে না। ডেটা টাইপ ভুল হলে দিনের পর দিন এরর খুঁজতে হতে পারে, আর শেষে দেখা যাবে সমস্যা শুধু ডেটা টাইপ। তাই এই বিষয়টা ভালো করে বুঝতে হবে।
-
-### NumPy এর ডেটা টাইপসমূহ
-
-NumPy তে অনেক ধরনের ডেটা টাইপ আছে, কিন্তু বেশি ব্যবহৃত গুলো হলো:
+সবচেয়ে বেশি ব্যবহৃত মেথড `np.array()`। Python list পাস করে দিলেই NumPy array বানিয়ে দেবে:
 
 ```python
 import numpy as np
 
-# Common data types
-int_arr = np.array([1, 2, 3])
-print(f"int64: {int_arr.dtype}")
+# Python list থেকে 1D array
+py_list = [1, 2, 3, 4, 5]
+arr_1d = np.array(py_list)
+print(f"1D array: {arr_1d}")
+print(f"shape: {arr_1d.shape}, ndim: {arr_1d.ndim}")
 
-float_arr = np.array([1.5, 2.5, 3.5])
-print(f"float64: {float_arr.dtype}")
+# Python list থেকে 2D array
+py_list_2d = [[1, 2, 3], [4, 5, 6]]
+arr_2d = np.array(py_list_2d)
+print(f"\n2D array:\n{arr_2d}")
+print(f"shape: {arr_2d.shape}, ndim: {arr_2d.ndim}")
 
-bool_arr = np.array([True, False, True])
-print(f"bool: {bool_arr.dtype}")
+# Python list থেকে 3D array
+py_list_3d = [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]
+arr_3d = np.array(py_list_3d)
+print(f"\n3D array:\n{arr_3d}")
+print(f"shape: {arr_3d.shape}, ndim: {arr_3d.ndim}")
 
-complex_arr = np.array([1+2j, 3+4j])
-print(f"complex128: {complex_arr.dtype}")
-
-# Specific size types
-int32_arr = np.array([1, 2, 3], dtype=np.int32)
-print(f"int32: {int32_arr.dtype}")
-
-float32_arr = np.array([1.0, 2.0], dtype=np.float32)
-print(f"float32: {float32_arr.dtype}")
-
-int8_arr = np.array([1, 2, 3], dtype=np.int8)
-print(f"int8: {int8_arr.dtype}")
+# Tuple থেকেও array বানানো যায়
+arr_from_tuple = np.array((10, 20, 30))
+print(f"\nTuple থেকে: {arr_from_tuple}")
 ```
 
 Output:
 ```
-int64: int64
-float64: float64
-bool: bool
-complex128: complex128
-int32: int32
-float32: float32
-int8: int8
+1D array: [1 2 3 4 5]
+shape: (5,), ndim: 1
+
+2D array:
+[[1 2 3]
+ [4 5 6]]
+shape: (2, 3), ndim: 2
+
+3D array:
+[[[1 2]
+  [3 4]]
+
+ [[5 6]
+  [7 8]]]
+shape: (2, 2, 2), ndim: 3
+
+Tuple থেকে: [10 20 30]
 ```
 
-### ডেটা টাইপের সাইজ ও রেঞ্জ
-
-```python
-import numpy as np
-
-# Range of different int types
-print("Integer Types:")
-for dtype in [np.int8, np.int16, np.int32, np.int64]:
-    info = np.iinfo(dtype)
-    print(f"  {dtype.__name__:8s}: {info.min:>20} to {info.max:<20} ({info.bits} bits)")
-
-print("\nFloat Types:")
-for dtype in [np.float16, np.float32, np.float64]:
-    info = np.finfo(dtype)
-    print(f"  {dtype.__name__:8s}: min={info.min:.2e}, max={info.max:.2e} ({info.bits} bits)")
-```
-
-Output:
-```
-Integer Types:
-  int8    :                -128 to 127                 (8 bits)
-  int16   :              -32768 to 32767                (16 bits)
-  int32   :          -2147483648 to 2147483647           (32 bits)
-  int64   : -9223372036854775808 to 9223372036854775807  (64 bits)
-
-Float Types:
-  float16 : min=-6.55e+04, max=6.55e+04 (16 bits)
-  float32 : min=-3.40e+38, max=3.40e+38 (32 bits)
-  float64 : min=-1.80e+308, max=1.80e+308 (32 bits)
-```
-
-কেন এটা গুরুত্বপূর্ণ? কারণ ডিপ লার্নিং এ float32 ব্যবহার হয়, float64 না। কারণ float64 দ্বিগুণ মেমরি লাগে, আর GPU তে float32 দ্রুত কাজ করে। তাই ডেটা টাইপ সম্পর্কে জানা দরকার।
-
-### টাইপ কনভার্শন (Type Casting)
-
-এক টাইপ থেকে আরেক টাইপে কনভার্ট করা প্রায়ই দরকার হয়:
-
-```python
-import numpy as np
-
-# Type conversion with astype()
-int_arr = np.array([1, 2, 3, 4, 5])
-print(f"Original: {int_arr}, dtype: {int_arr.dtype}")
-
-float_arr = int_arr.astype(np.float64)
-print(f"float64: {float_arr}, dtype: {float_arr.dtype}")
-
-int32_arr = int_arr.astype(np.int32)
-print(f"int32: {int32_arr}, dtype: {int32_arr.dtype}")
-
-# float to int (decimal truncated)
-float_data = np.array([1.7, 2.3, 3.9, 4.1])
-int_data = float_data.astype(np.int32)
-print(f"\nfloat to int: {float_data} -> {int_data}")
-```
-
-Output:
-```
-Original: [1 2 3 4 5], dtype: int64
-float64: [1. 2. 3. 4. 5.], dtype: float64
-int32: [1 2 3 4 5], dtype: int32
-
-float to int: [1.7 2.3 3.9 4.1] -> [1 2 3 4]
-```
-
-খেয়াল করো, float থেকে int এ কনভার্ট করলে রাউন্ড হয় না, দশমিক অংশ কেটে যায়। ১.৭ হয়ে যায় ১, ৩.৯ হয়ে যায় ৩। এটা অনেক সময় বাগ এর কারণ হতে পারে।
-
-### Array তৈরির বিভিন্ন উপায়
-
-`np.array()` ছাড়াও অনেকভাবে array তৈরি করা যায়:
+### অ্যারে তৈরির অন্যান্য উপায়
 
 ```python
 import numpy as np
@@ -186,9 +122,137 @@ eye:
  [0. 0. 1.]]
 ```
 
-### Array Attributes
+**rand, randn, randint এর পার্থক্য:**
 
-NumPy array তে অনেক গুরুত্বপূর্ণ অ্যাট্রিবিউট আছে:
+```python
+import numpy as np
+
+# rand - uniform distribution (0 to 1)
+uniform = np.random.rand(5)
+print(f"rand (uniform 0-1): {uniform}")
+
+# randn - normal distribution (mean=0, std=1)
+normal = np.random.randn(5)
+print(f"randn (normal):     {normal}")
+
+# randint - random integers in range
+ints = np.random.randint(10, 50, size=5)
+print(f"randint (10-50):    {ints}")
+```
+
+Output:
+```
+rand (uniform 0-1): [0.374 0.852 0.123 0.667 0.941]
+randn (normal):     [ 0.312 -1.245  0.876 -0.432  1.567]
+randint (10-50):    [34 12 47 23 38]
+```
+
+### ডেটা টাইপসমূহ
+
+```python
+import numpy as np
+
+# Common data types
+int_arr = np.array([1, 2, 3])
+print(f"int64: {int_arr.dtype}")
+
+float_arr = np.array([1.5, 2.5, 3.5])
+print(f"float64: {float_arr.dtype}")
+
+bool_arr = np.array([True, False, True])
+print(f"bool: {bool_arr.dtype}")
+
+complex_arr = np.array([1+2j, 3+4j])
+print(f"complex128: {complex_arr.dtype}")
+
+# Specific size types
+int32_arr = np.array([1, 2, 3], dtype=np.int32)
+print(f"int32: {int32_arr.dtype}")
+
+float32_arr = np.array([1.0, 2.0], dtype=np.float32)
+print(f"float32: {float32_arr.dtype}")
+
+int8_arr = np.array([1, 2, 3], dtype=np.int8)
+print(f"int8: {int8_arr.dtype}")
+```
+
+Output:
+```
+int64: int64
+float64: float64
+bool: bool
+complex128: complex128
+int32: int32
+float32: float32
+int8: int8
+```
+
+### ডেটা টাইপের সাইজ ও রেঞ্জ
+
+```python
+import numpy as np
+
+# Range of different int types
+print("Integer Types:")
+for dtype in [np.int8, np.int16, np.int32, np.int64]:
+    info = np.iinfo(dtype)
+    print(f"  {dtype.__name__:8s}: {info.min:>20} to {info.max:<20} ({info.bits} bits)")
+
+print("\nFloat Types:")
+for dtype in [np.float16, np.float32, np.float64]:
+    info = np.finfo(dtype)
+    print(f"  {dtype.__name__:8s}: min={info.min:.2e}, max={info.max:.2e} ({info.bits} bits)")
+```
+
+Output:
+```
+Integer Types:
+  int8    :                -128 to 127                 (8 bits)
+  int16   :              -32768 to 32767                (16 bits)
+  int32   :          -2147483648 to 2147483647           (32 bits)
+  int64   : -9223372036854775808 to 9223372036854775807  (64 bits)
+
+Float Types:
+  float16 : min=-6.55e+04, max=6.55e+04 (16 bits)
+  float32 : min=-3.40e+38, max=3.40e+38 (32 bits)
+  float64 : min=-1.80e+308, max=1.80e+308 (64 bits)
+```
+
+**মেমরি হিসাব:** একটা 1000x1000 array তে int64 ব্যবহার করলে 8,000,000 বাইট লাগবে। int32 ব্যবহার করলে 4,000,000 বাইট। অর্ধেক মেমরি বাঁচবে। ডিপ লার্নিং এ float32 ব্যবহার হয় এই কারণেই, GPU তেও float32 দ্রুত কাজ করে।
+
+### টাইপ কনভার্শন (Type Casting)
+
+```python
+import numpy as np
+
+# astype() দিয়ে টাইপ কনভার্ট
+int_arr = np.array([1, 2, 3, 4, 5])
+print(f"Original: {int_arr}, dtype: {int_arr.dtype}")
+
+float_arr = int_arr.astype(np.float64)
+print(f"float64: {float_arr}, dtype: {float_arr.dtype}")
+
+int32_arr = int_arr.astype(np.int32)
+print(f"int32: {int32_arr}, dtype: {int32_arr.dtype}")
+
+# float to int (decimal truncated)
+float_data = np.array([1.7, 2.3, 3.9, 4.1])
+int_data = float_data.astype(np.int32)
+print(f"\nfloat to int: {float_data} -> {int_data}")
+```
+
+Output:
+```
+Original: [1 2 3 4 5], dtype: int64
+float64: [1. 2. 3. 4. 5.], dtype: float64
+int32: [1 2 3 4 5], dtype: int32
+
+float to int: [1.7 2.3 3.9 4.1] -> [1 2 3 4]
+```
+
+খেয়াল করো, float থেকে int এ কনভার্ট করলে রাউন্ড হয় না, দশমিক অংশ কেটে যায়। 1.7 হয়ে যায় 1, 3.9 হয়ে যায় 3। এটা অনেক সময় বাগ এর কারণ হতে পারে।
+
+### Array Attributes
 
 ```python
 import numpy as np
@@ -227,24 +291,20 @@ T (transpose):
  [ 4  8 12]]
 ```
 
-**গুরুত্বপূর্ণ অ্যাট্রিবিউট ব্যাখ্যা:**
-
-- **ndim:** কত ডাইমেনশনের array। ১D হলে ১, ২D হলে ২, ইত্যাদি।
-- **shape:** প্রতি ডাইমেনশনে কতগুলো এলিমেন্ট। (৩, ৪) মানে ৩ রো, ৪ কলাম।
+- **ndim:** কত ডাইমেনশনের array। 1D হলে 1, 2D হলে 2, ইত্যাদি।
+- **shape:** প্রতি ডাইমেনশনে কতগুলো এলিমেন্ট। (3, 4) মানে 3 রো, 4 কলাম।
 - **size:** মোট এলিমেন্ট সংখ্যা। shape এর সব গুণফল।
 - **dtype:** এলিমেন্টগুলোর ডেটা টাইপ।
-- **itemsize:** প্রতিটা এলিমেন্ট কত বাইট জায়গা নেয়। int64 হলে ৮ বাইট, float32 হলে ৪ বাইট।
+- **itemsize:** প্রতিটা এলিমেন্ট কত বাইট জায়গা নেয়। int64 হলে 8 বাইট, float32 হলে 4 বাইট।
 - **nbytes:** পুরো array কত বাইট জায়গা নেয়। size * itemsize।
 - **T:** ট্রান্সপোজ, রো আর কলাম অদলবদল।
 
-### শেপ রিশেপ (Reshape)
-
-অনেক সময় array এর শেপ পরিবর্তন করতে হয়। মেশিন লার্নিং এ এটা প্রায়ই দরকার হয়:
+### Reshape
 
 ```python
 import numpy as np
 
-# Reshape 1D to 2D
+# 1D to 2D
 arr = np.arange(12)
 print(f"Original 1D: {arr}, shape: {arr.shape}")
 
@@ -258,7 +318,7 @@ arr_3d = arr.reshape(2, 2, 3)
 print(f"\n3D (2,2,3):\n{arr_3d}")
 
 # -1 for automatic calculation
-arr_auto = arr.reshape(3, -1)  # -1 means calculate automatically
+arr_auto = arr.reshape(3, -1)
 print(f"\nAuto (3,-1):\n{arr_auto}")
 print(f"shape: {arr_auto.shape}")
 ```
@@ -292,11 +352,9 @@ Auto (3,-1):
 shape: (3, 4)
 ```
 
-reshape এ একটা নিয়ম আছে: মোট এলিমেন্ট সংখ্যা বদলানো যাবে না। ১২টা এলিমেন্ট আছে, তাহলে (৩,৪), (৪,৩), (২,৬), (৬,২), (২,২,৩) সব সম্ভব, কিন্তু (৩,৫) সম্ভব না, কারণ ৩*৫=১৫, ১২ না।
+reshape এ মোট এলিমেন্ট সংখ্যা বদলানো যাবে না। 12টা এলিমেন্ট আছে, তাহলে (3,4), (4,3), (2,6), (6,2), (2,2,3) সব সম্ভব, কিন্তু (3,5) সম্ভব না, কারণ 3*5=15, 12 না।
 
 ### Flatten ও Ravel
-
-মাল্টিডাইমেনশনাল array কে ১D তে নামিয়ে আনা:
 
 ```python
 import numpy as np
@@ -343,8 +401,18 @@ After modifying ravel, original array:
 
 ### সারসংক্ষেপ
 
-| অ্যাট্রিবিউট | কাজ |
+| মেথড/অ্যাট্রিবিউট | কাজ |
 |---|---|
+| `np.array()` | list/tuple থেকে array |
+| `np.zeros()` | 0 দিয়ে ভরা array |
+| `np.ones()` | 1 দিয়ে ভরা array |
+| `np.full()` | নির্দিষ্ট মান দিয়ে ভরা |
+| `np.arange()` | range এর মতো |
+| `np.linspace()` | সমান ব্যবধান |
+| `np.random.rand()` | uniform 0-1 |
+| `np.random.randn()` | normal distribution |
+| `np.random.randint()` | র্যান্ডম ইন্টিজার |
+| `np.eye()` | identity matrix |
 | `ndim` | ডাইমেনশন সংখ্যা |
 | `shape` | প্রতি ডাইমেনশনে সাইজ |
 | `size` | মোট এলিমেন্ট |
@@ -353,8 +421,6 @@ After modifying ravel, original array:
 | `nbytes` | মোট বাইট |
 | `T` | ট্রান্সপোজ |
 | `reshape()` | শেপ পরিবর্তন |
-| `flatten()` | ১D কপি |
-| `ravel()` | ১D ভিউ |
+| `flatten()` | 1D কপি |
+| `ravel()` | 1D ভিউ |
 | `astype()` | টাইপ কনভার্ট |
-
-ডেটা টাইপ আর শেপ হলো মেশিন লার্নিং এর দুইটা সবচেয়ে গুরুত্বপূর্ণ বেসিক কনসেপ্ট। প্রায় প্রতিদিন shape mismatch এরর দেখা যায়। "ValueError: shapes (100,3) and (4,) not aligned" এই ধরনের এরর মানে হলো, array এর শেপ মিলছে না। তাই shape, reshape, dtype এগুলো ভালো করে প্র্যাকটিস করতে হবে।
