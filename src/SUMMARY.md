@@ -5,3 +5,4 @@
     - [মেশিন লার্নিং এর প্রকারভেদ ও ওয়ার্কফ্লো](ch01-02-ml-types.md)
 - [NumPy: Numerical Python](ch02-00-numpy.md)
     - [NumPy পরিচিতি ও ndarray](ch02-01-numpy-intro.md)
+    - [NumPy ডেটা টাইপ ও Array Attributes](ch02-02-numpy-dtypes-attributes.md)
