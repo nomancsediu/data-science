@@ -6,3 +6,4 @@
 - [NumPy: Numerical Python](ch02-00-numpy.md)
     - [NumPy পরিচিতি ও ndarray](ch02-01-numpy-intro.md)
     - [NumPy Array Creation ও ডেটা টাইপ](ch02-02-numpy-array-creation.md)
+    - [NumPy ইনডেক্সিং ও স্লাইসিং](ch02-03-numpy-indexing-slicing.md)
