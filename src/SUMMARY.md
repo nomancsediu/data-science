@@ -8,3 +8,4 @@
     - [NumPy Array Creation ও ডেটা টাইপ](ch02-02-numpy-array-creation.md)
     - [NumPy ইনডেক্সিং ও স্লাইসিং](ch02-03-numpy-indexing-slicing.md)
     - [NumPy Array Manipulation](ch02-04-numpy-array-manipulation.md)
+    - [NumPy Sorting, Searching, String Functions এবং Iterating](ch02-05-numpy-sorting-searching.md)
