@@ -270,6 +270,4 @@ np.linalg.inv(A):
 
 ব্রডকাস্টিং হলো NumPy এর সবচেয়ে শক্তিশালী ফিচার, কিন্তু এটা না বুঝলে সবচেয়ে বেশি এরর আসবে। "shapes not aligned" এরর আসলে বোঝা যাবে, ব্রডকাস্টিং নিয়ম মিলছে না। এরর আসলে shape প্রিন্ট করতে হবে, ব্রডকাস্টিং নিয়ম মেলাতে হবে, দরকার হলে reshape করতে হবে।
 
-নোট: https://github.com/nomancsediu/pyfords
-
 #NumPy #Broadcasting #MatrixOperations #DataScience #PythonForML
