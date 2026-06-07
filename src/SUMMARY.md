@@ -9,3 +9,4 @@
     - [NumPy ইনডেক্সিং ও স্লাইসিং](ch02-03-numpy-indexing-slicing.md)
     - [NumPy Array Manipulation](ch02-04-numpy-array-manipulation.md)
     - [NumPy Sorting, Searching, String Functions এবং Iterating](ch02-05-numpy-sorting-searching.md)
+    - [NumPy ব্রডকাস্টিং ও অপারেশন](ch02-06-numpy-broadcasting.md)
